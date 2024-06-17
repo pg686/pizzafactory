@@ -1,0 +1,98 @@
+#create-page,
+#edit-page {
+    position: relative;
+    width: 80%;
+    height: auto;
+    border-radius: 20px;
+    padding: 40px;
+    box-sizing: border-box;
+    text-align: center;
+    background: #3e4443;
+    box-shadow: 0px 0px 32px 0px #32485e, -14px -14px 20px #191c21;
+}
+
+input[type="text"] {
+    background: #ecf0f3;
+    padding: 30px;
+    padding-left: 20px;
+    height: 50px;
+    margin-top: 10px;
+    font-size: 24px;
+    border-radius: 50px;
+    box-shadow: inset 6px 6px 6px #c0c2c5, inset -6px -6px 6px white;
+}
+
+.input-box {
+    display: flex;
+    align-items: center;
+    margin: 1rem;
+    justify-content: space-between;
+
+    border-bottom: 1px solid purple;
+}
+
+.ingredients {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex: 1;
+    margin: 2rem;
+}
+.ingredientsContainer {
+    padding: 25px;
+    border: 2px solid #fff;
+    border-radius: 15px;
+}
+.ingredient{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px 0;
+    font-size: 24px;
+}
+
+.ingredient label{
+    position: relative;
+width: 50px;
+height: 50px;
+    
+}
+
+input[type="checkbox"] {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    opacity: 0;
+}
+
+label span {
+    margin-left: 8px;
+    display: block;
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    border: 3px solid #fff;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+label span::after{
+    content: '';
+    position: absolute;
+    left: 4px;
+    bottom: 10px;
+    height: 0px;
+    width: 0px;
+    border: solid #00ff0a;
+    border-width: 0 4px 4px 0;
+    transform: rotate(45deg);
+    opacity: 0;
+    transition: width 0.5s, height 0.5s, opacity 0.5s;
+}
+
+input:checked ~ span::after{
+    width: 20px;
+    height: 28px;
+    opacity: 1;
+}
