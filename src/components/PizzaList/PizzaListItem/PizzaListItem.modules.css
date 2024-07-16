@@ -1,60 +1,59 @@
 .cardTitle {
-    display: flex;
-    justify-content: center;
-    border-bottom: 1px solid grey;
-    margin-bottom: 10px;
-
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid grey;
+  margin-bottom: 10px;
 }
 
 .cardWrapper {
-    display: flex;
-    overflow: hidden;
-    justify-content: center;
-    flex-direction: column;
-    align-content: center;  
-    padding: 10px 1rem;
-    border: 1px solid grey;
-    width: 300px;
-    height: 400px;
-    border-radius: 20px;
+  display: flex;
+  overflow: hidden;
+  justify-content: center;
+  flex-direction: column;
+  align-content: center;
+  padding: 10px 1rem;
+  border: 1px solid grey;
+  width: 300px;
+  height: 400px;
+  border-radius: 20px;
 }
 
 .cardImg {
-    width: 80%;
-    height: 30%;
-    margin: 0 auto;
-    border-radius: 20px;
+  width: 80%;
+  height: 30%;
+  margin: 0 auto;
+  border-radius: 20px;
 }
 
 .likeAndComments {
- display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;   
-    font-size: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  font-size: 15px;
 }
 .pizzaDescriptionWrapper {
-    height: 60px;
-    overflow: auto;
-    border: 1px solid wheat;
+  height: 60px;
+  overflow: auto;
+  border: 1px solid wheat;
 }
-.pizzaDescription{
-    word-wrap: break-word;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    text-overflow: ellipsis;
-    font-size: 15px;
-    flex-shrink: 3;
+.pizzaDescription {
+  word-wrap: break-word;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  text-overflow: ellipsis;
+  font-size: 15px;
+  flex-shrink: 3;
 }
-.pizzaType{
-    padding: 3px;
-    font-weight: bold;
-    text-align: center;
+.pizzaType {
+  padding: 3px;
+  font-weight: bold;
+  text-align: center;
 }
 .cardButtons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
