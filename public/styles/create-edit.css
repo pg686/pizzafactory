@@ -1,14 +1,19 @@
+.createWrapper{
+    padding: 5rem 0rem;
+}
+
 #create-page,
 #edit-page {
-    position: relative;
-    width: 80%;
-    height: auto;
     border-radius: 20px;
-    padding: 40px;
-    box-sizing: border-box;
+    margin: 0 auto;
+    display: flex;
+    padding: 2rem 0;
+    justify-content: center;
+    align-items: center;
+    justify-content: center;
+    background-color: #dbd7cc;
     text-align: center;
-    background: #3e4443;
-    box-shadow: 0px 0px 32px 0px #32485e, -14px -14px 20px #191c21;
+    flex-wrap: wrap;
 }
 
 input[type="text"] {
@@ -18,17 +23,19 @@ input[type="text"] {
     height: 50px;
     margin-top: 10px;
     font-size: 24px;
+    box-sizing: border-box;
+
+    display: flex;
     border-radius: 50px;
     box-shadow: inset 6px 6px 6px #c0c2c5, inset -6px -6px 6px white;
 }
 
-.input-box {
+.createPizzaInput {
     display: flex;
     align-items: center;
-    margin: 1rem;
+    padding: 1rem;
+    width: 100%;
     justify-content: space-between;
-
-    border-bottom: 1px solid purple;
 }
 
 .ingredients {
@@ -36,33 +43,85 @@ input[type="text"] {
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
-    flex: 1;
-    margin: 2rem;
+}
+@media (max-width: 500px) { 
+    
+.ingredients {
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column;
+    
+}
+@media (max-width: 750px) {  
+.createPizzaInput:nth-child(2), 
+.createPizzaInput:nth-child(3)  {
+ flex-direction: column;
+
+}
+input[type="text"] {
+width: 100%;
+
+}
+.pizzaInfoContainer {
+    width: 100%;
+}
+
 }
 .ingredientsContainer {
+
+    flex: 1;
+}
+}
+.createPizzaContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ingredientsColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 2rem;
+}
+
+.ingredientsContainer {
+
     padding: 25px;
     border: 2px solid #fff;
     border-radius: 15px;
+    display: inline-flex;
+    flex-grow: 0;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 .ingredient{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 5px 0;
-    font-size: 24px;
+    font-size: 15px;
 }
 
 .ingredient label{
     position: relative;
-width: 50px;
-height: 50px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.checkBoxIngedient {
+    display: flex;
     
 }
-
 input[type="checkbox"] {
     width: 50%;
     height: 50%;
     position: absolute;
+    background-color: red;
+    margin: 10px 0;
     opacity: 0;
 }
 
@@ -95,4 +154,34 @@ input:checked ~ span::after{
     width: 20px;
     height: 28px;
     opacity: 1;
+}
+
+.btn.submit {
+    margin-top: 30px;
+    background: #778e9c;
+    height: 60px;
+    border-radius: 20px;
+    color: white;
+    font-size: 26px;
+    cursor: pointer;
+    font-weight: 900;
+    box-shadow: 6px 6px 6px #cbced1, -6px -6px 6px white;
+    transition: 0.5s;
+}
+
+.pizzaInfoContainer {
+    border: 1px solid white;
+    border-radius: 20px;
+    padding: 1rem;
+    width: 60%;
+}
+
+.line {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    width: 2px;
+    background-color: white;
 }

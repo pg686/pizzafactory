@@ -1,1 +1,113 @@
 @import "create-edit.css";
+@import "all-pizzas.css";
+@import "dashboard.css";
+@import "navigation.css";
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+:root {
+    --header-height: 3.5rem;
+    --first-color: hsl(19, 64%, 54%);
+    --first-color-alt: hsl(19, 64%, 52%);
+    --title-color: hsl(19, 16%, 15%);
+    --text-color: hsl(19, 16%, 35%);
+    --text-color-light: hsl(19, 8%, 55%);
+    --body: hsl(19, 100%, 96%);
+    --container-color: hsl(19, 100%, 97%);
+
+    --body-font: 'Poppins', sans-serif;
+    --title-font: 'Lora', serif;
+    --subtitle-font: 'Dancing Script', cursive;
+    --biggest-font-size: 2.25rem;
+    --h1-font-size: 1.5rem;
+    --h2-font-size: 1.25rem;
+    --h3-font-size: 1rem;
+    --normal-font-size: .938rem;
+    --small-font-size: .813rem;
+    --smaller-font-size: .75rem;
+
+
+    --font-medium: 500;
+    --font-semi-bold: 600;
+
+    --z-tooltip: 10;
+    --z-fixed: 100;
+}
+
+@media (min-width: 1024px){
+    :root {
+        --biggest-font-size: 4rem;
+        --h1-font-size: 2.25rem;
+        --h2-font-size: 1.5rem;
+        --h3-font-size: 1.25rem;
+        --normal-font-size: 1rem;
+        --small-font-size: .875rem;
+        --smallest-font-size: .813rem;
+    }
+}
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    background-color: var(--body-color);
+    color: var(--text-color);
+}
+
+h1, h2, h3{
+    color: var(--title-color);
+    font-weight: var(--font-medium);
+}
+
+ul{
+    list-style: none;
+}
+
+
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+
+.container{
+    max-width: 1024px;
+    margin-inline: 1.5rem;
+}
+
+.grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.section {
+    padding-block: 5rem 1rem;
+}
+
+.sectionTitle {
+    display: block;
+    font-size: var(--h2-font-size);
+    font-family: var(--subtitle-font);
+    color: var(--first-color);
+    margin-bottom: .5rem;
+}
+
+.sectionTitle,
+.sectionSubtitle {
+    text-align: center;
+}

@@ -15,6 +15,7 @@ export default function PizzaCreate() {
     useEffect(() => {
         if (!pizzaId) {
             pizzaService.getAllIngredients().then(result => {
+                console.log(result, "result")
                 const filteredProducts = Object.entries(result[0]).filter(([key]) => key !== '_id');
                 setProducts(Object.fromEntries(filteredProducts));
             });
@@ -66,33 +67,68 @@ export default function PizzaCreate() {
         }
     };
 
+    const createPizzaSubmitHandler = async (e) => {
+        e.preventDefault();
+        let formData = new FormData(e.currentTarget);
+        let name = formData.get('name');
+        
+        let imageUrl = formData.get('imageUrl');
+
+        try {
+            await pizzaService.create({
+                name,
+                description,
+                imageUrl,
+                pizzaType,
+                price,
+                products,
+                likes: [],
+                comments: []
+                
+            });
+
+            navigate('/');
+        } catch (err) {
+            // Error notification
+            console.log(err, "err")
+            console.log("efkfd");
+        }
+    }
+
     return (
-        <section id="create-page" className="auth">
-            <form id="create">
-                <div className="container">
+<div className='createWrapper'>
+
+
+            <div id="create-page">
+            <form id="create" onSubmit={createPizzaSubmitHandler}>
+                <div className="createPizzaContainer">
+               <div className="pizzaInfoContainer">
                     <h1>Create Pizza</h1>
-                    <div className='input-box'>
+                    <div className='createPizzaInput'>
                         <label htmlFor="pizza-name">Pizza name:</label>
                         <input type="text" id="name" name="name" placeholder="Enter pizza name..." />
                     </div>
-                    <div className='input-box'>
+                    <div className='createPizzaInput'>
                         <label htmlFor="pizza-img">Image:</label>
                         <input type="text" id="imageUrl" name="imageUrl" placeholder="Upload a photo..." />
                     </div>
-                    <div className='input-box'>
+                    <div className='createPizzaInput'>
                         <label htmlFor="description">Description</label>
                         <p>{description.join(", ") || ''}</p>
                     </div>
-                    <div className='input-box'>
+                    <div className='createPizzaInput'>
                         <label htmlFor="price">Price</label>
                         <p>{price}</p>
                     </div>
-                    <div className='input-box'>
+                    <div className='createPizzaInput'>
                         <label htmlFor="type">Type</label>
                         <p>{pizzaType}</p>
                     </div>
+                    </div>
+                    <span className='line'></span>
                     <div className="ingredients">
                         {Object.keys(products).map(category => (
+                            console.log(category, "category"),	
                             <div className="ingredientsContainer" key={category}>
                                 <h3>{category}</h3>
                                 {Object.keys(products[category]).map(ingredient => (
@@ -105,7 +141,7 @@ export default function PizzaCreate() {
                                                 onChange={onProductChange}
                                                 checked={products[category][ingredient].checked || false}
                                             />
-                                            <span></span>
+                                            <span className='checkBoxIngedient'></span>
                                         </label>
                                     </div>
                                 ))}
@@ -115,6 +151,7 @@ export default function PizzaCreate() {
                     <input className="btn submit" type="submit" value="Create Pizza" />
                 </div>
             </form>
-        </section>
+            </div>
+            </div>  
     );
 }

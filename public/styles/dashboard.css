@@ -1,0 +1,68 @@
+.home {
+    position: relative;
+}
+
+.homeContainer {
+    row-gap: 3rem;
+    padding-top: 2rem;
+}
+
+.homeImg {
+    width: 30%;
+    justify-content: center;
+}
+
+.homeData{
+    text-align: center;
+}
+
+.homeTitle img{
+    width: 40px;
+}
+
+.homeTitle div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: .5rem;
+}
+
+.homeDescription {
+    padding: 0 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.button {
+ display: inline-flex;
+ align-items: center;
+ column-gap: .5rem;
+ background-color: var(--first-color);
+ padding: 1rem 1.5rem;
+border-radius: 4rem;
+color: #fff;
+font-weight: var(--font-medium);
+}
+
+
+.button i{
+    font-size: 1.5rem;
+    transition: transform .3s;
+}
+
+.button:hover{
+    background-color: var(--first-color-alt);
+}   
+
+.button:hover i{
+    transform: translateX(.25rem);
+}
+
+.pizzaList{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    columns: 5;
+    gap: 1rem;
+}
+
