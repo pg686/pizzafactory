@@ -1,7 +1,4 @@
 import { FaArrowRight } from "react-icons/fa";
-import { useEffect, useState } from "react";
-import Card from "../../elements/Card/Card.jsx";
-import * as pizzaService from "../../services/pizzaService.js";
 import PizzaList from "../PizzaList/PizzaList.jsx";
 export default function Dashboard() {
   return (

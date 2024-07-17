@@ -18,8 +18,10 @@ export default function PizzaList() {
       <h1>Pizzas</h1>
       <div className="pizzaList">
         {pizzas.map((pizza) => {
+          console.log(pizza, "pizza");
           return (
             <PizzaListItem
+              key={pizza._id}
               id={pizza._id}
               name={pizza.name}
               type={pizza.pizzaType}

@@ -52,10 +52,26 @@
   background-color: var(--first-color-alt);
 }
 
+.button:hover {
+  background-color: var(--first-color-alt);
+}
+
 .button:hover i {
   transform: translateX(0.25rem);
 }
 
+.secondaryButton {
+  background-color: var(--secondary-color);
+}
+.secondaryButton:hover {
+  background-color: var(--secondary-color-alt);
+}
+.tertiaryButton {
+  background-color: var(--tertiary-color);
+}
+.tertiaryButton:hover {
+  background-color: var(--tertiary-color-alt);
+}
 .pizzaList {
   display: flex;
   flex-wrap: wrap;
