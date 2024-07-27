@@ -3,11 +3,14 @@ import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import useForm from '../../hooks/useForm.js';
+import AuthContext from '../../context/authContext.js';
+import { useContext } from 'react';
 const LoginFormKeys = {
     Email: 'email',
     Password: 'password'  
 }
-const Login = ({loginSubmitHandler}) => {
+const Login = () => {
+    const {loginSubmitHandler} = useContext(AuthContext);
     const {values, onChange, onSubmit} = useForm(loginSubmitHandler,{
         [LoginFormKeys.Email]: '',
         [LoginFormKeys.Password]: ''
@@ -20,15 +23,16 @@ const Login = ({loginSubmitHandler}) => {
     <h1>Login</h1>
     <div className='input-box'>
         <input 
-            type='email' 
+            type='text' 
             onChange={onChange} 
+            name={LoginFormKeys.Email}
             placeholder='Email' 
             value={values[LoginFormKeys.Email]}
             required/>
         <FaUser className='authIcons'/>
     </div>
     <div className='input-box'>
-        <input type='password' value={values[LoginFormKeys.Password]} onChange={onChange} placeholder='Password' required/>
+        <input type='password' name={LoginFormKeys.Password} value={values[LoginFormKeys.Password]} onChange={onChange} placeholder='Password' required/>
         <FaLock  className='authIcons'/>
     </div>
 

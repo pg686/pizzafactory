@@ -3,16 +3,13 @@ import { useRef, useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../../context/authContext.js";
 const Navigation = () => {
   const navRef = useRef();
-  const headerRef = useRef();
+  const {isAuthenticated, username} = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const showNavbar = () => {
-    navRef.current.classList.toggle("responsive_nav");
-
-    headerRef.current.classList.toggle("responsive-style");
-  };
+console.log(username, "username")
   let userNavigation = (
     <>
       <li>
@@ -77,7 +74,7 @@ const Navigation = () => {
                 Dashboard
               </Link>
             </li>
-            {false ? userNavigation : guestNavigation}
+            {isAuthenticated ? userNavigation : guestNavigation}
           </ul>
         </div>
       </nav>
