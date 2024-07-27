@@ -3,6 +3,7 @@ import PizzaList from "../PizzaList/PizzaList.jsx";
 export default function Dashboard() {
   return (
     <section className="home section" id="home">
+    <div className="homeWrapper">
       <div className="homeContainer container grid">
         <img src="/images/pizzaImage.png" className="homeImg" />
       </div>
@@ -19,6 +20,7 @@ export default function Dashboard() {
           Order Now
           <FaArrowRight />
         </a>
+        </div>
       </div>
       <PizzaList />
     </section>

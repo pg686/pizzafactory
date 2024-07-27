@@ -1,18 +1,26 @@
 .home {
   position: relative;
-}
 
+}
+.homeWrapper{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 5rem 10rem;
+  align-items: center;
+}
 .homeContainer {
-  row-gap: 3rem;
   padding-top: 2rem;
+  flex: 1;
 }
 
 .homeImg {
-  width: 30%;
+  width: 100%;
   justify-content: center;
 }
 
 .homeData {
+  flex: 3;
   text-align: center;
 }
 

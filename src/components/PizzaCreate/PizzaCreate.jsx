@@ -116,6 +116,7 @@ export default function PizzaCreate() {
                   type="text"
                   id="name"
                   name="name"
+                  className="createPizzaInputBox"
                   placeholder="Enter pizza name..."
                 />
               </div>
@@ -125,6 +126,7 @@ export default function PizzaCreate() {
                   type="text"
                   id="imageUrl"
                   name="imageUrl"
+                  className="createPizzaInputBox"
                   placeholder="Upload a photo..."
                 />
               </div>
@@ -155,6 +157,7 @@ export default function PizzaCreate() {
                           <label>
                             <input
                               type="checkbox"
+                              className="pizzaIngedient"
                               value={ingredient}
                               onChange={onProductChange}
                               checked={

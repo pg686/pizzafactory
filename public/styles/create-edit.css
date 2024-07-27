@@ -11,12 +11,11 @@
   justify-content: center;
   align-items: center;
   justify-content: center;
-  background-color: #dbd7cc;
   text-align: center;
   flex-wrap: wrap;
 }
 
-input[type="text"] {
+.createPizzaInputBox {
   background: #ecf0f3;
   padding: 30px;
   padding-left: 20px;
@@ -110,7 +109,7 @@ input[type="text"] {
 .checkBoxIngedient {
   display: flex;
 }
-input[type="checkbox"] {
+.pizzaIngedient{
   width: 50%;
   height: 50%;
   position: absolute;
