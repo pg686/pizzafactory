@@ -1,5 +1,5 @@
 import * as request from "../lib/request.js";
-const baseUrl = "http://localhost:3030/jsonstore/pizzas";
+const baseUrl = "http://localhost:3030/data/pizzas";
 export const getAllIngredients = async () => {
   const ingredientsUrl = "http://localhost:3030/jsonstore/ingredients";
   const result = await request.get(ingredientsUrl);

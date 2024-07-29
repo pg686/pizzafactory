@@ -11,26 +11,43 @@ import AuthContext from "./context/authContext.js";
 import * as authService from "./services/authService.js";
 import { useNavigate } from "react-router-dom";
 import Path from "./paths.js";
+import Logout from "./components/Logout/Logout.jsx";
 
 function App() {
-  const [auth, setAuth] = useState({});
+  const [auth, setAuth] = useState(()=>{
+    localStorage.removeItem('accessToken');
+    return {};
+  });
   const navigate = useNavigate();
   const loginSubmitHandler = async (values) => {
 const result = await authService.login(values.email, values.password);
 setAuth(result);
+localStorage.setItem('accessToken', result.accessToken);
 console.log(result, "result");
 navigate(Path.Home);
   }
 const registerSubmitHandler = async (values) => {
- console.log(values, "values");
+  console.log(values, "values");
+const result = await authService.register(values.email, values.password, values.username);
+setAuth(result);
+console.log(result, "result");
+localStorage.setItem('accessToken', result.accessToken);
+navigate(Path.Home);
 };
+
+const logoutHandler =  () => {
+  setAuth({});
+  localStorage.removeItem('accessToken');
+}
   const values = {
     loginSubmitHandler,
     registerSubmitHandler,
+    logoutHandler,
     username: auth.username,
     email: auth.email,
-    isAuthenticated: !!auth.username
+    isAuthenticated: !!auth.email
   }
+
   return (
     <AuthContext.Provider value={values}>
     <>
@@ -39,9 +56,11 @@ const registerSubmitHandler = async (values) => {
         <Route path="/" element={<Dashboard />} />
         <Route path="/pizzas" element={<PizzaList />} />
         <Route path="/login" element={<Login/>} />
+        <Route path={Path.Logout} element={<Logout/>} />
         <Route path="/register" element={<Register />} />
         <Route path="/pizzas/create" element={<PizzaCreate />} />
         <Route path="/pizzas/:pizzaId" element={<PizzaDetails />} />
+
       </Routes>
     </>
     </AuthContext.Provider>

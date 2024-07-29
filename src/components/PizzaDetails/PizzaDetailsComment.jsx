@@ -2,7 +2,9 @@ import React from "react";
 import "./PizzaDetailsComment.modules.css";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineDislike } from "react-icons/ai";
-const PizzaDetailsComments = () => {
+import {getDate} from "../../utils/utils.js";
+const PizzaDetailsComments = ({comment}) => {
+  console.log(comment, "comment");
   return (
     <div className="commentContainer">
       <div className="commentProfile">
@@ -13,18 +15,19 @@ const PizzaDetailsComments = () => {
         />
       </div>
       <div className="commentContent">
-        <div className="commentOwner">Ivan</div>
+        <div className="commentOwner">{comment.owner.username}</div>
         <div className="commentData">
-          <div className="timePosted">{"12.12.2021"}</div>
+          <div className="timePosted">{getDate(comment._createdOn)}</div>
           <div className="reactions">
-            <span>{"0"}</span>
+            <span>{comment.likes}</span>
             <AiOutlineLike className="likeDislike" />
+            <span>{comment.dislikes}</span>
             <AiOutlineDislike className="likeDislike" />
           </div>
         </div>
         <div className="commentDescription">
           {
-            "fsdffsf sdffsdfsdffsdfsdff sdfsdffsdfsd ffsdfsdffsdf sdffsdfsdf fsdfsdffsdfsdffsddfsdffsd"
+            comment.text
           }
         </div>
       </div>

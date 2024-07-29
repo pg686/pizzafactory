@@ -2,21 +2,42 @@ import React from "react";
 import { Routes, Route, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as pizzaService from "../../services/pizzaService.js";
+import * as commentService from "../../services/commentService.js";
 import PizzaDetailsComment from "./PizzaDetailsComment.jsx";
 import { getPizzaDescription } from "../../utils/utils.js";
 import "./PizzaDetails.modules.css";
+import useForm from "../../hooks/useForm.js";
+import { useContext } from "react";
+import AuthContext from "../../context/authContext.js";
 import { Link } from "react-router-dom";
 const PizzaDetails = () => {
   let { pizzaId } = useParams();
   const [pizza, setPizza] = useState({});
+  const [comments, setComments] = useState([]);
+  const { username, userId } = useContext(AuthContext);
 
   useEffect(() => {
     if (pizzaId) {
       pizzaService.getOne(pizzaId).then((result) => {
         setPizza(result);
       });
+
+      commentService.getAllComments(pizzaId).then((result) => {
+setComments(result);
+      });
     }
   }, [pizzaId]);
+  const addCommentHandler = async (values) => {
+   const newComment = await commentService.createComment(pizzaId, values.comment);
+newComment.owner = { username };
+
+setComments(state => [...state, newComment]);
+
+
+  }
+  const { values, onChange, onSubmit } = useForm(addCommentHandler, {
+    comment: '',
+});
 
   console.log(pizza, "pizza");
   return (
@@ -56,7 +77,9 @@ const PizzaDetails = () => {
       <div className="commentsWrapper">
         <h2 className="commentsTitle">Comments</h2>
         <div className="comments">
-          <PizzaDetailsComment />
+          {comments.map((comment) => (
+            <PizzaDetailsComment key={comment._id} comment={comment} />
+          ))}
           <div className="addComment">
             <div className="ownerInfo">
               <img
@@ -65,12 +88,14 @@ const PizzaDetails = () => {
                 className="commentImg"
               />
 
-              <div className="commentOwner">Ivan</div>
+              <div className="commentOwner">{username}</div>
             </div>
-            <textarea className="comment"></textarea>
+            <form className="form" onSubmit={onSubmit}>
+            <textarea name="comment" value={values.comment} className="comment"  onChange={onChange}  placeholder="Comment......"></textarea>
             <div className="commentSubmitWrapper">
               <button className="commentSubmit">Add comment</button>
             </div>
+            </form>
           </div>
         </div>
       </div>

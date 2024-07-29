@@ -9,3 +9,9 @@ export const getPizzaDescription = (products) => {
     }, [])
     .join(", ");
 };
+
+
+export const getDate = (timestamp) => {
+const date = new Date(timestamp);
+return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+}
