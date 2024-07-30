@@ -1,6 +1,6 @@
 const Path = {
-    Home: '/',
-    Logout: '/logout',
+  Home: "/",
+  Logout: "/logout",
 };
 
 export default Path;

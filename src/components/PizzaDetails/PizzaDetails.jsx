@@ -21,13 +21,16 @@ const PizzaDetails = () => {
 
       commentService.getAllComments(pizzaId).then((result) => {
         console.log(result, "getAllComments");
-      setComments(result);
+        setComments(result);
       });
     }
   }, [pizzaId]);
 
   const addCommentHandler = async (values) => {
-    const newComment = await commentService.createComment(pizzaId, values.comment);
+    const newComment = await commentService.createComment(
+      pizzaId,
+      values.comment,
+    );
     newComment.owner = { username, email };
     setComments((prevComments) => [...prevComments, newComment]);
   };
@@ -49,8 +52,10 @@ const PizzaDetails = () => {
   const updateComment = (updatedComment) => {
     setComments((prevComments) =>
       prevComments.map((comment) =>
-        comment._id === updatedComment._id ? { ...updatedComment, owner: { username, email } } : comment
-      )
+        comment._id === updatedComment._id
+          ? { ...updatedComment, owner: { username, email } }
+          : comment,
+      ),
     );
   };
 

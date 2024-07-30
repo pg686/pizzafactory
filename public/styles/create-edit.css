@@ -109,7 +109,7 @@
 .checkBoxIngedient {
   display: flex;
 }
-.pizzaIngedient{
+.pizzaIngedient {
   width: 50%;
   height: 50%;
   position: absolute;

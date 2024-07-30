@@ -7,9 +7,9 @@ import { useContext } from "react";
 import AuthContext from "../../context/authContext.js";
 const Navigation = () => {
   const navRef = useRef();
-  const {isAuthenticated, username} = useContext(AuthContext);
+  const { isAuthenticated, username } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
-console.log(username, "username")
+  console.log(username, "username");
   let userNavigation = (
     <>
       <li>

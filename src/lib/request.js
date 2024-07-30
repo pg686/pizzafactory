@@ -9,11 +9,11 @@ const buildOptions = (data) => {
   }
   const token = localStorage.getItem("accessToken");
 
-  if(token){
+  if (token) {
     options.headers = {
       ...options.headers,
-      'X-Authorization': token
-    }
+      "X-Authorization": token,
+    };
   }
 
   return options;
@@ -26,10 +26,10 @@ const request = async (method, url, data) => {
   });
   if (response.status === 204) {
     return {};
-}
+  }
   const result = await response.json();
 
-  if(!response.ok){
+  if (!response.ok) {
     throw result.message;
   }
 

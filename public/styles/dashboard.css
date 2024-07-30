@@ -1,8 +1,7 @@
 .home {
   position: relative;
-
 }
-.homeWrapper{
+.homeWrapper {
   display: flex;
   flex-direction: row;
   justify-content: center;
