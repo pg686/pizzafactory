@@ -15,7 +15,6 @@ export default function PizzaCreate() {
   useEffect(() => {
     if (!pizzaId) {
       pizzaService.getAllIngredients().then((result) => {
-        console.log(result, "result");
         const filteredProducts = Object.entries(result[0]).filter(
           ([key]) => key !== "_id",
         );
@@ -99,7 +98,6 @@ export default function PizzaCreate() {
     } catch (err) {
       // Error notification
       console.log(err, "err");
-      console.log("efkfd");
     }
   };
 
@@ -147,7 +145,6 @@ export default function PizzaCreate() {
             <div className="ingredients">
               {Object.keys(products).map(
                 (category) => (
-                  console.log(category, "category"),
                   (
                     <div className="ingredientsContainer" key={category}>
                       <h3>{category}</h3>

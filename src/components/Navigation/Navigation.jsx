@@ -9,7 +9,6 @@ const Navigation = () => {
   const navRef = useRef();
   const { isAuthenticated, username } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
-  console.log(username, "username");
   let userNavigation = (
     <>
       <li>

@@ -23,18 +23,15 @@ function App() {
     const result = await authService.login(values.email, values.password);
     setAuth(result);
     localStorage.setItem("accessToken", result.accessToken);
-    console.log(result, "result");
     navigate(Path.Home);
   };
   const registerSubmitHandler = async (values) => {
-    console.log(values, "values");
     const result = await authService.register(
       values.email,
       values.password,
       values.username,
     );
     setAuth(result);
-    console.log(result, "result");
     localStorage.setItem("accessToken", result.accessToken);
     navigate(Path.Home);
   };

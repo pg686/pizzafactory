@@ -20,7 +20,6 @@ const PizzaDetails = () => {
       });
 
       commentService.getAllComments(pizzaId).then((result) => {
-        console.log(result, "getAllComments");
         setComments(result);
       });
     }
