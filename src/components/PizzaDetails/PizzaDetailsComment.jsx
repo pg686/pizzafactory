@@ -1,10 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./PizzaDetailsComment.modules.css";
-import { AiOutlineLike } from "react-icons/ai";
-import { AiOutlineDislike } from "react-icons/ai";
-import {getDate} from "../../utils/utils.js";
-const PizzaDetailsComments = ({comment}) => {
-  console.log(comment, "comment");
+import { AiOutlineLike, AiOutlineDislike, AiFillLike, AiFillDislike } from "react-icons/ai";
+import { getDate } from "../../utils/utils.js";
+import * as commentService from "../../services/commentService.js";
+
+const PizzaDetailsComments = ({ comment, handleLike, handleDislike, isAuthenticated }) => {
+  const [liked, setLiked] = useState(false);
+  const [disliked, setDisliked] = useState(false);
+
+  useEffect(() => {
+    if (comment) {
+      const email = comment?.owner?.email;
+      const likes = Array.isArray(comment?.likes) && comment.likes.includes(email);
+      const dislikes = Array.isArray(comment?.dislikes) && comment.dislikes.includes(email);
+
+      setLiked(likes);
+      setDisliked(dislikes && !likes); // Ensuring setDisliked is not true if setLiked is true
+    }
+  }, [comment]);
+
+  const handleLikeClick = () => {
+    setLiked(true);
+    setDisliked(false);
+    handleLike(comment);
+  };
+
+  const handleDislikeClick = () => {
+    setLiked(false);
+    setDisliked(true);
+    handleDislike(comment);
+  };
+
   return (
     <div className="commentContainer">
       <div className="commentProfile">
@@ -19,16 +45,22 @@ const PizzaDetailsComments = ({comment}) => {
         <div className="commentData">
           <div className="timePosted">{getDate(comment._createdOn)}</div>
           <div className="reactions">
-            <span>{comment.likes}</span>
-            <AiOutlineLike className="likeDislike" />
-            <span>{comment.dislikes}</span>
-            <AiOutlineDislike className="likeDislike" />
+            <span>{comment?.likes?.length}</span>
+            {liked && isAuthenticated ? (
+              <AiFillLike className="likeDislike" />
+            ) : (
+              <AiOutlineLike onClick={handleLikeClick} className="likeDislike" />
+            )}
+            <span>{comment?.dislikes?.length}</span>
+            {disliked && isAuthenticated ? (
+              <AiFillDislike className="likeDislike" />
+            ) : (
+              <AiOutlineDislike onClick={handleDislikeClick} className="likeDislike" />
+            )}
           </div>
         </div>
         <div className="commentDescription">
-          {
-            comment.text
-          }
+          {comment.text}
         </div>
       </div>
     </div>
