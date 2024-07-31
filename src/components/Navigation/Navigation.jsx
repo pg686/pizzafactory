@@ -55,7 +55,7 @@ const Navigation = () => {
   return (
     <header className="header">
       <nav className="navbar" ref={navRef}>
-        <Link className="navTitle" to="apufrens">
+        <Link className="navTitle" to="/">
           {" "}
           <img src="/images/logo.png" className="logo" />
           Pizza Factory
@@ -69,7 +69,7 @@ const Navigation = () => {
             onClick={() => setMenuOpen(false)}
           >
             <li>
-              <Link className="navLink" to="dashboard">
+              <Link className="navLink" to="/">
                 Dashboard
               </Link>
             </li>
