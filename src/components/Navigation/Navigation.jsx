@@ -4,7 +4,7 @@ import { FaBars, FaTimes } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import AuthContext from "../../context/authContext.js";
+import AuthContext from "../../context/authContext";
 const Navigation = () => {
   const navRef = useRef();
   const { isAuthenticated, username } = useContext(AuthContext);

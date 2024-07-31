@@ -3,7 +3,7 @@ import { FaUser } from "react-icons/fa";
 import { FaLock } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import useForm from "../../hooks/useForm.js";
-import AuthContext from "../../context/authContext.js";
+import AuthContext from "../../context/authContext";
 import { useContext } from "react";
 const LoginFormKeys = {
   Email: "email",

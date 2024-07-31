@@ -6,7 +6,7 @@ import PizzaDetailsComment from "./PizzaDetailsComment.jsx";
 import { getPizzaDescription } from "../../utils/utils.js";
 import "./PizzaDetails.modules.css";
 import useForm from "../../hooks/useForm.js";
-import AuthContext from "../../context/authContext.js";
+import AuthContext from "../../context/authContext";
 
 const PizzaDetails = () => {
   const { pizzaId } = useParams();

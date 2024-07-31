@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import AuthContext from "../../context/authContext.js";
+import AuthContext from "../../context/authContext";
 import useForm from "../../hooks/useForm.js";
 
 import { FaLock } from "react-icons/fa";
