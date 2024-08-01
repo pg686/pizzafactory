@@ -114,23 +114,42 @@ export default function PizzaCreate() {
 
   const createPizzaSubmitHandler = async (e) => {
     e.preventDefault();
+    if (pizzaId) {
+      try {
+        await pizzaService.edit(pizzaId, {
+          name: pizza.name,
+          description: pizza.description,
+          imageUrl: pizza.imageUrl,
+          pizzaType: pizza.pizzaType,
+          price: pizza.price,
+          products: pizza.products,
+          likes: [],
+          comments: [],
+        });
 
-    try {
-      await pizzaService.create({
-        name: pizza.name,
-        description: pizza.description,
-        imageUrl: pizza.imageUrl,
-        pizzaType: pizza.pizzaType,
-        price: pizza.price,
-        products: pizza.products,
-        likes: [],
-        comments: [],
-      });
+        navigate("/");
+      } catch (err) {
+        // Error notification
+        console.log(err, "err");
+      }
+    } else {
+      try {
+        await pizzaService.create({
+          name: pizza.name,
+          description: pizza.description,
+          imageUrl: pizza.imageUrl,
+          pizzaType: pizza.pizzaType,
+          price: pizza.price,
+          products: pizza.products,
+          likes: [],
+          comments: [],
+        });
 
-      navigate("/");
-    } catch (err) {
-      // Error notification
-      console.log(err, "err");
+        navigate("/");
+      } catch (err) {
+        // Error notification
+        console.log(err, "err");
+      }
     }
   };
   const onChange = (e) => {
@@ -154,7 +173,7 @@ export default function PizzaCreate() {
                   id="name"
                   onChange={onChange}
                   name={CreateEditFormKeys.Name}
-                  value={pizza?.name}
+                  value={pizza?.[CreateEditFormKeys.Name]}
                   className="createPizzaInputBox"
                   placeholder="Enter pizza name..."
                 />
@@ -166,22 +185,24 @@ export default function PizzaCreate() {
                   id="imageUrl"
                   onChange={onChange}
                   name={CreateEditFormKeys.ImageUrl}
-                  value={pizza?.imageUrl}
+                  value={pizza?.[CreateEditFormKeys.ImageUrl]}
                   className="createPizzaInputBox"
                   placeholder="Upload a photo..."
                 />
               </div>
               <div className="createPizzaInput">
                 <label htmlFor="description">Description</label>
-                <p>{pizza?.description?.join(", ") || ""}</p>
+                <p>
+                  {pizza?.[CreateEditFormKeys.Description]?.join(", ") || ""}
+                </p>
               </div>
               <div className="createPizzaInput">
                 <label htmlFor="price">Price</label>
-                <p>{pizza?.price}</p>
+                <p>{pizza?.[CreateEditFormKeys.Price]}</p>
               </div>
               <div className="createPizzaInput">
                 <label htmlFor="type">Type</label>
-                <p>{pizza?.pizzaType}</p>
+                <p>{pizza?.[CreateEditFormKeys.PizzaType]}</p>
               </div>
             </div>
             <span className="line"></span>
@@ -191,7 +212,7 @@ export default function PizzaCreate() {
                   <div className="ingredientsContainer" key={category}>
                     <h3>{category}</h3>
                     {Object.keys(
-                      pizza[CreateEditFormKeys.Products][category],
+                      pizza?.[CreateEditFormKeys.Products][category],
                     ).map((ingredient) => (
                       <div className="ingredient" key={ingredient}>
                         <p>{ingredient}</p>

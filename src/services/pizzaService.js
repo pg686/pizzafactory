@@ -21,3 +21,9 @@ export const getOne = async (id) => {
   const result = await request.get(`${baseUrl}/${id}`);
   return result;
 };
+
+export const edit = async (pizzaId, pizzaData) => {
+  const result = await request.put(`${baseUrl}/${pizzaId}`, pizzaData);
+
+  return result;
+};
