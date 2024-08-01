@@ -7,11 +7,10 @@ import Login from "./components/Login/Login.jsx";
 import Register from "./components/Register/Register.jsx";
 import PizzaDetails from "./components/PizzaDetails/PizzaDetails.jsx";
 import Path from "./paths.js";
-import { AuthProvider } from './context/authContext.jsx';
+import { AuthProvider } from "./context/authContext.jsx";
 import Logout from "./components/Logout/Logout.jsx";
 
 function App() {
- 
   return (
     <AuthProvider>
       <>

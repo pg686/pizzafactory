@@ -32,10 +32,12 @@ export const createComment = async (pizzaId, text) => {
   }
 };
 
-export const like = async (comment) => {
+export const like = async (comment, isLiked) => {
   const updatedComment = {
     ...comment,
-    likes: [...comment.likes, comment.owner.email],
+    likes: isLiked
+      ? [...comment.likes, comment.owner.email]
+      : comment.likes.filter((c) => c !== comment.owner.email),
     dislikes: comment.dislikes.filter(
       (dislike) => dislike !== comment.owner.email,
     ),
@@ -46,6 +48,7 @@ export const like = async (comment) => {
       `${baseUrl}/${comment._id}`,
       updatedComment,
     );
+    console.log(result, "result liked");
     return result;
   } catch (error) {
     console.error("Failed to like comment", error);
@@ -53,10 +56,12 @@ export const like = async (comment) => {
   }
 };
 
-export const dislike = async (comment) => {
+export const dislike = async (comment, isDisliked) => {
   const updatedComment = {
     ...comment,
-    dislikes: [...comment.dislikes, comment.owner.email],
+    dislikes: isDisliked
+      ? [...comment.dislikes, comment.owner.email]
+      : comment.dislikes.filter((c) => c !== comment.owner.email),
     likes: comment.likes.filter((like) => like !== comment.owner.email),
   };
 
@@ -65,6 +70,7 @@ export const dislike = async (comment) => {
       `${baseUrl}/${comment._id}`,
       updatedComment,
     );
+    console.log(result, "result disliked");
     return result;
   } catch (error) {
     console.error("Failed to dislike comment", error);

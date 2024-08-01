@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useReducer } from "react";
 import { useParams, Link } from "react-router-dom";
 import * as pizzaService from "../../services/pizzaService.js";
 import * as commentService from "../../services/commentService.js";
@@ -7,11 +7,13 @@ import { getPizzaDescription } from "../../utils/utils.js";
 import "./PizzaDetails.modules.css";
 import useForm from "../../hooks/useForm.js";
 import AuthContext from "../../context/authContext";
+import * as actionTypes from "../../constants/actionTypes.js";
+import reducer from "../../reducers/commentsReducer.js";
 
 const PizzaDetails = () => {
   const { pizzaId } = useParams();
   const [pizza, setPizza] = useState({});
-  const [comments, setComments] = useState([]);
+  const [comments, dispatch] = useReducer(reducer, []);
   const { username, email, isAuthenticated } = useContext(AuthContext);
   useEffect(() => {
     if (pizzaId) {
@@ -20,10 +22,13 @@ const PizzaDetails = () => {
       });
 
       commentService.getAllComments(pizzaId).then((result) => {
-        setComments(result);
+        dispatch({
+          type: actionTypes.GET_ALL_COMMENTS,
+          payload: result,
+        });
       });
     }
-  }, [pizzaId]);
+  }, [pizzaId, comments]);
 
   const addCommentHandler = async (values) => {
     const newComment = await commentService.createComment(
@@ -31,31 +36,28 @@ const PizzaDetails = () => {
       values.comment,
     );
     newComment.owner = { username, email };
-    setComments((prevComments) => [...prevComments, newComment]);
+    dispatch({
+      type: actionTypes.ADD_COMMENT,
+      payload: newComment,
+    });
   };
 
-  const handleLike = async (comment) => {
-    if (!comment.likes?.includes(email)) {
-      const result = await commentService.like(comment);
-      updateComment(result);
-    }
+  const handleLike = async (comment, isLiked) => {
+    const result = await commentService.like(comment, isLiked);
+    result.owner = { username, email };
+    dispatch({
+      type: actionTypes.UPDATE_COMMENT,
+      payload: result,
+    });
   };
 
-  const handleDislike = async (comment) => {
-    if (!comment.dislikes?.includes(email)) {
-      const result = await commentService.dislike(comment);
-      updateComment(result);
-    }
-  };
-
-  const updateComment = (updatedComment) => {
-    setComments((prevComments) =>
-      prevComments.map((comment) =>
-        comment._id === updatedComment._id
-          ? { ...updatedComment, owner: { username, email } }
-          : comment,
-      ),
-    );
+  const handleDislike = async (comment, isDisliked) => {
+    const result = await commentService.dislike(comment, isDisliked);
+    result.owner = { username, email };
+    dispatch({
+      type: actionTypes.UPDATE_COMMENT,
+      payload: result,
+    });
   };
 
   const { values, onChange, onSubmit } = useForm(addCommentHandler, {

@@ -143,32 +143,28 @@ export default function PizzaCreate() {
             </div>
             <span className="line"></span>
             <div className="ingredients">
-              {Object.keys(products).map(
-                (category) => (
-                  (
-                    <div className="ingredientsContainer" key={category}>
-                      <h3>{category}</h3>
-                      {Object.keys(products[category]).map((ingredient) => (
-                        <div className="ingredient" key={ingredient}>
-                          <p>{ingredient}</p>
-                          <label>
-                            <input
-                              type="checkbox"
-                              className="pizzaIngedient"
-                              value={ingredient}
-                              onChange={onProductChange}
-                              checked={
-                                products[category][ingredient].checked || false
-                              }
-                            />
-                            <span className="checkBoxIngedient"></span>
-                          </label>
-                        </div>
-                      ))}
+              {Object.keys(products).map((category) => (
+                <div className="ingredientsContainer" key={category}>
+                  <h3>{category}</h3>
+                  {Object.keys(products[category]).map((ingredient) => (
+                    <div className="ingredient" key={ingredient}>
+                      <p>{ingredient}</p>
+                      <label>
+                        <input
+                          type="checkbox"
+                          className="pizzaIngedient"
+                          value={ingredient}
+                          onChange={onProductChange}
+                          checked={
+                            products[category][ingredient].checked || false
+                          }
+                        />
+                        <span className="checkBoxIngedient"></span>
+                      </label>
                     </div>
-                  )
-                ),
-              )}
+                  ))}
+                </div>
+              ))}
             </div>
             <input className="btn submit" type="submit" value="Create Pizza" />
           </div>

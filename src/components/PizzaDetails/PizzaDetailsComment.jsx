@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import "./PizzaDetailsComment.modules.css";
 import {
   AiOutlineLike,
@@ -7,7 +7,6 @@ import {
   AiFillDislike,
 } from "react-icons/ai";
 import { getDate } from "../../utils/utils.js";
-import * as commentService from "../../services/commentService.js";
 
 const PizzaDetailsComments = ({
   comment,
@@ -20,35 +19,41 @@ const PizzaDetailsComments = ({
 
   useEffect(() => {
     if (comment) {
-      const email = comment?.owner?.email;
+      const email = comment.owner?.email;
       const likes =
-        Array.isArray(comment?.likes) && comment.likes.includes(email);
+        Array.isArray(comment.likes) && comment.likes.includes(email);
       const dislikes =
-        Array.isArray(comment?.dislikes) && comment.dislikes.includes(email);
+        Array.isArray(comment.dislikes) && comment.dislikes.includes(email);
 
       setLiked(likes);
-      setDisliked(dislikes && !likes); // Ensuring setDisliked is not true if setLiked is true
+      setDisliked(dislikes && !likes);
     }
   }, [comment]);
 
-  const handleLikeClick = () => {
-    setLiked(true);
-    setDisliked(false);
-    handleLike(comment);
-  };
+  const handleLikeClick = useCallback(() => {
+    setLiked((prevLiked) => {
+      const newLiked = !prevLiked;
+      if (newLiked) setDisliked(false);
+      handleLike(comment, newLiked);
+      return newLiked;
+    });
+  }, [comment, handleLike]);
 
-  const handleDislikeClick = () => {
-    setLiked(false);
-    setDisliked(true);
-    handleDislike(comment);
-  };
+  const handleDislikeClick = useCallback(() => {
+    setDisliked((prevDisliked) => {
+      const newDisliked = !prevDisliked;
+      if (newDisliked) setLiked(false);
+      handleDislike(comment, newDisliked);
+      return newDisliked;
+    });
+  }, [comment, handleDislike]);
 
   return (
     <div className="commentContainer">
       <div className="commentProfile">
         <img
           src="https://pg686.github.io/cuttie/images/andrew.jpg"
-          alt=""
+          alt="comment profile"
           className="commentImg"
         />
       </div>
@@ -57,18 +62,21 @@ const PizzaDetailsComments = ({
         <div className="commentData">
           <div className="timePosted">{getDate(comment._createdOn)}</div>
           <div className="reactions">
-            <span>{comment?.likes?.length}</span>
+            <span>{comment.likes?.length ?? 0}</span>
             {liked && isAuthenticated ? (
-              <AiFillLike className="likeDislike" />
+              <AiFillLike onClick={handleLikeClick} className="likeDislike" />
             ) : (
               <AiOutlineLike
                 onClick={handleLikeClick}
                 className="likeDislike"
               />
             )}
-            <span>{comment?.dislikes?.length}</span>
+            <span>{comment.dislikes?.length ?? 0}</span>
             {disliked && isAuthenticated ? (
-              <AiFillDislike className="likeDislike" />
+              <AiFillDislike
+                onClick={handleDislikeClick}
+                className="likeDislike"
+              />
             ) : (
               <AiOutlineDislike
                 onClick={handleDislikeClick}
