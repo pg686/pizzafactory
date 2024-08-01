@@ -1,10 +1,11 @@
+import * as actionTypes from "../constants/actionTypes.js";
 const reducer = (state, action) => {
-  switch (action.type) {
-    case "GET_ALL_COMMENTS":
+  switch (action?.type) {
+    case actionTypes.GET_ALL_COMMENTS:
       return [...action.payload];
-    case "CREATE_COMMENT":
+    case actionTypes.ADD_COMMENT:
       return [...state, action.payload];
-    case "UPDATE_COMMENT":
+    case actionTypes.UPDATE_COMMENT:
       return [
         ...state.map((comment) => {
           if (comment._id === action.payload._id) {

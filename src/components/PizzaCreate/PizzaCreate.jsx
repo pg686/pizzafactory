@@ -3,14 +3,25 @@ import { useEffect, useState } from "react";
 import * as pizzaService from "../../services/pizzaService.js";
 import { useParams } from "react-router-dom";
 
+const CreateEditFormKeys = {
+  Name: "name",
+  ImageUrl: "imageUrl",
+  Description: "description",
+  Price: "price",
+  PizzaType: "pizzaType",
+  Products: "products",
+};
 export default function PizzaCreate() {
   const navigate = useNavigate();
   let { pizzaId } = useParams();
-
-  const [products, setProducts] = useState({});
-  const [description, setDescription] = useState([]);
-  const [pizzaType, setPizzaType] = useState("vegan");
-  const [price, setPrice] = useState(0);
+  const [pizza, setPizza] = useState({
+    [CreateEditFormKeys.Name]: "",
+    [CreateEditFormKeys.ImageUrl]: "",
+    [CreateEditFormKeys.Description]: [],
+    [CreateEditFormKeys.Price]: 0,
+    [CreateEditFormKeys.PizzaType]: "vegan",
+    [CreateEditFormKeys.Products]: {},
+  });
 
   useEffect(() => {
     if (!pizzaId) {
@@ -18,7 +29,24 @@ export default function PizzaCreate() {
         const filteredProducts = Object.entries(result[0]).filter(
           ([key]) => key !== "_id",
         );
-        setProducts(Object.fromEntries(filteredProducts));
+        setPizza((state) => ({
+          ...state,
+          [CreateEditFormKeys.Products]: Object.fromEntries(filteredProducts),
+        }));
+      });
+    } else {
+      pizzaService.getOne(pizzaId).then((result) => {
+        const filteredProducts = Object.entries(result.products).filter(
+          ([key]) => key !== "_id",
+        );
+        setPizza({
+          [CreateEditFormKeys.Name]: result.name,
+          [CreateEditFormKeys.ImageUrl]: result.imageUrl,
+          [CreateEditFormKeys.Description]: result.description,
+          [CreateEditFormKeys.Price]: result.price,
+          [CreateEditFormKeys.PizzaType]: result.pizzaType,
+          [CreateEditFormKeys.Products]: Object.fromEntries(filteredProducts),
+        });
       });
     }
   }, [pizzaId]);
@@ -27,69 +55,74 @@ export default function PizzaCreate() {
     const { value, checked } = e.target;
 
     // Find the category and ingredient
-    const category = Object.keys(products).find(
-      (cat) => value in products[cat],
+    const category = Object.keys(pizza[CreateEditFormKeys.Products]).find(
+      (cat) => value in pizza[CreateEditFormKeys.Products][cat],
     );
     if (!category) {
       console.error("Product not found in any category");
       return;
     }
 
-    const ingredient = products[category][value];
+    const ingredient = pizza[CreateEditFormKeys.Products][category][value];
     const ingredientPrice = ingredient.price;
 
     // Update products state
     const updatedProducts = {
-      ...products,
+      ...pizza[CreateEditFormKeys.Products],
       [category]: {
-        ...products[category],
+        ...pizza[CreateEditFormKeys.Products][category],
         [value]: { ...ingredient, checked },
       },
     };
 
-    setProducts(updatedProducts);
-
-    // Update price and description
-    setPrice((prevPrice) =>
-      checked ? prevPrice + ingredientPrice : prevPrice - ingredientPrice,
-    );
-    setDescription((prevDescription) =>
-      checked
-        ? [...prevDescription, value]
-        : prevDescription.filter((item) => item !== value),
-    );
-
+    setPizza((state) => ({
+      ...state,
+      [CreateEditFormKeys.Products]: updatedProducts,
+      [CreateEditFormKeys.Price]: checked
+        ? state[CreateEditFormKeys.Price] + ingredientPrice
+        : state[CreateEditFormKeys.Price] - ingredientPrice,
+      [CreateEditFormKeys.Description]: checked
+        ? [...state[CreateEditFormKeys.Description], value]
+        : state[CreateEditFormKeys.Description].filter(
+            (item) => item !== value,
+          ),
+    }));
     // Update pizza type
     const allCheckedIngredients = Object.values(updatedProducts).flatMap(
       (cat) => Object.values(cat).filter((item) => item.checked),
     );
 
     if (allCheckedIngredients.some((item) => item.type === "meat")) {
-      setPizzaType("meat");
+      setPizza((state) => ({
+        ...state,
+        [CreateEditFormKeys.PizzaType]: "meat",
+      }));
     } else if (
       allCheckedIngredients.some((item) => item.type === "vegetarian")
     ) {
-      setPizzaType("vegetarian");
+      setPizza((state) => ({
+        ...state,
+        [CreateEditFormKeys.PizzaType]: "vegetarian",
+      }));
     } else {
-      setPizzaType("vegan");
+      setPizza((state) => ({
+        ...state,
+        [CreateEditFormKeys.PizzaType]: "vegan",
+      }));
     }
   };
 
   const createPizzaSubmitHandler = async (e) => {
     e.preventDefault();
-    let formData = new FormData(e.currentTarget);
-    let name = formData.get("name");
-
-    let imageUrl = formData.get("imageUrl");
 
     try {
       await pizzaService.create({
-        name,
-        description,
-        imageUrl,
-        pizzaType,
-        price,
-        products,
+        name: pizza.name,
+        description: pizza.description,
+        imageUrl: pizza.imageUrl,
+        pizzaType: pizza.pizzaType,
+        price: pizza.price,
+        products: pizza.products,
         likes: [],
         comments: [],
       });
@@ -100,7 +133,13 @@ export default function PizzaCreate() {
       console.log(err, "err");
     }
   };
-
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setPizza((state) => ({
+      ...state,
+      [name]: value,
+    }));
+  };
   return (
     <div className="createWrapper">
       <div id="create-page">
@@ -113,7 +152,9 @@ export default function PizzaCreate() {
                 <input
                   type="text"
                   id="name"
-                  name="name"
+                  onChange={onChange}
+                  name={CreateEditFormKeys.Name}
+                  value={pizza?.name}
                   className="createPizzaInputBox"
                   placeholder="Enter pizza name..."
                 />
@@ -123,48 +164,56 @@ export default function PizzaCreate() {
                 <input
                   type="text"
                   id="imageUrl"
-                  name="imageUrl"
+                  onChange={onChange}
+                  name={CreateEditFormKeys.ImageUrl}
+                  value={pizza?.imageUrl}
                   className="createPizzaInputBox"
                   placeholder="Upload a photo..."
                 />
               </div>
               <div className="createPizzaInput">
                 <label htmlFor="description">Description</label>
-                <p>{description.join(", ") || ""}</p>
+                <p>{pizza?.description?.join(", ") || ""}</p>
               </div>
               <div className="createPizzaInput">
                 <label htmlFor="price">Price</label>
-                <p>{price}</p>
+                <p>{pizza?.price}</p>
               </div>
               <div className="createPizzaInput">
                 <label htmlFor="type">Type</label>
-                <p>{pizzaType}</p>
+                <p>{pizza?.pizzaType}</p>
               </div>
             </div>
             <span className="line"></span>
             <div className="ingredients">
-              {Object.keys(products).map((category) => (
-                <div className="ingredientsContainer" key={category}>
-                  <h3>{category}</h3>
-                  {Object.keys(products[category]).map((ingredient) => (
-                    <div className="ingredient" key={ingredient}>
-                      <p>{ingredient}</p>
-                      <label>
-                        <input
-                          type="checkbox"
-                          className="pizzaIngedient"
-                          value={ingredient}
-                          onChange={onProductChange}
-                          checked={
-                            products[category][ingredient].checked || false
-                          }
-                        />
-                        <span className="checkBoxIngedient"></span>
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              ))}
+              {Object.keys(pizza[CreateEditFormKeys.Products]).map(
+                (category) => (
+                  <div className="ingredientsContainer" key={category}>
+                    <h3>{category}</h3>
+                    {Object.keys(
+                      pizza[CreateEditFormKeys.Products][category],
+                    ).map((ingredient) => (
+                      <div className="ingredient" key={ingredient}>
+                        <p>{ingredient}</p>
+                        <label>
+                          <input
+                            type="checkbox"
+                            className="pizzaIngedient"
+                            value={ingredient}
+                            onChange={onProductChange}
+                            checked={
+                              pizza[CreateEditFormKeys.Products][category][
+                                ingredient
+                              ].checked || false
+                            }
+                          />
+                          <span className="checkBoxIngedient"></span>
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                ),
+              )}
             </div>
             <input className="btn submit" type="submit" value="Create Pizza" />
           </div>

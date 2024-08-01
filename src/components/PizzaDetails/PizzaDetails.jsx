@@ -14,21 +14,20 @@ const PizzaDetails = () => {
   const { pizzaId } = useParams();
   const [pizza, setPizza] = useState({});
   const [comments, dispatch] = useReducer(reducer, []);
-  const { username, email, isAuthenticated } = useContext(AuthContext);
+  const { username, email, isAuthenticated, userId } = useContext(AuthContext);
+  const isOwner = pizza._ownerId === userId;
   useEffect(() => {
-    if (pizzaId) {
-      pizzaService.getOne(pizzaId).then((result) => {
-        setPizza(result);
-      });
+    pizzaService.getOne(pizzaId).then((result) => {
+      setPizza(result);
+    });
 
-      commentService.getAllComments(pizzaId).then((result) => {
-        dispatch({
-          type: actionTypes.GET_ALL_COMMENTS,
-          payload: result,
-        });
+    commentService.getAllComments(pizzaId).then((result) => {
+      dispatch({
+        type: actionTypes.GET_ALL_COMMENTS,
+        payload: result,
       });
-    }
-  }, [pizzaId, comments]);
+    });
+  }, [pizzaId]);
 
   const addCommentHandler = async (values) => {
     const newComment = await commentService.createComment(
@@ -40,6 +39,7 @@ const PizzaDetails = () => {
       type: actionTypes.ADD_COMMENT,
       payload: newComment,
     });
+    console.log(comments, "all comments");
   };
 
   const handleLike = async (comment, isLiked) => {
@@ -83,15 +83,30 @@ const PizzaDetails = () => {
           <div className="pizzaPrice">{`Price: ${pizza.price}`}</div>
           <div className="pizzaType">{pizza.pizzaType}</div>
           <div className="pizzaDetailsButtons">
-            <Link to="" className="button secondaryButton">
-              Edit
-            </Link>
-            <Link to="" className="button tertiaryButton">
-              Like
-            </Link>
+            {isOwner && (
+              <Link
+                to={`/pizzas/${pizzaId}/edit`}
+                className="button secondaryButton"
+              >
+                Edit
+              </Link>
+            )}
+            {!isOwner && (
+              <Link to="" className="button tertiaryButton">
+                Like
+              </Link>
+            )}
             <Link to="" className="button">
               Order
             </Link>
+            {isOwner && (
+              <Link
+                to="/pizzas/:pizzaId/delete"
+                className="button warningButton"
+              >
+                Delete
+              </Link>
+            )}
           </div>
         </div>
       </div>

@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const loginSubmitHandler = async (values) => {
     const result = await authService.login(values.email, values.password);
+
     setAuth(result);
     localStorage.setItem("accessToken", result.accessToken);
     navigate(Path.Home);
@@ -37,9 +38,10 @@ export const AuthProvider = ({ children }) => {
     logoutHandler,
     username: auth.username,
     email: auth.email,
+    userId: auth._id,
     isAuthenticated: !!auth.email,
   };
-
+  console.log(auth, "auth result");
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
 AuthContext.displayName = "AuthContext";

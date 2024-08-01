@@ -22,7 +22,9 @@ function App() {
           <Route path={Path.Logout} element={<Logout />} />
           <Route path="/register" element={<Register />} />
           <Route path="/pizzas/create" element={<PizzaCreate />} />
+
           <Route path="/pizzas/:pizzaId" element={<PizzaDetails />} />
+          <Route path="/pizzas/:pizzaId/edit" element={<PizzaCreate />} />
         </Routes>
       </>
     </AuthProvider>

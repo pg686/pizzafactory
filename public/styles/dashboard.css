@@ -79,6 +79,12 @@
 .tertiaryButton:hover {
   background-color: var(--tertiary-color-alt);
 }
+.warningButton {
+  background-color: var(--warning-color);
+}
+.warningButton:hover {
+  background-color: var(--warning-color-alt);
+}
 .pizzaList {
   display: flex;
   flex-wrap: wrap;
