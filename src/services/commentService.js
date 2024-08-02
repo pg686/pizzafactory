@@ -2,7 +2,7 @@ import * as request from "../lib/request.js";
 
 const baseUrl = "http://localhost:3030/data/comments";
 
-export const getAllComments = async (pizzaId) => {
+export const getAllCommentsPerPizza = async (pizzaId) => {
   const query = new URLSearchParams({
     where: `pizzaId="${pizzaId}"`,
     load: `owner=_ownerId:users`,

@@ -8,12 +8,16 @@ import "./PizzaDetails.modules.css";
 import useForm from "../../hooks/useForm.js";
 import AuthContext from "../../context/authContext";
 import * as actionTypes from "../../constants/actionTypes.js";
+import { useNavigate } from "react-router-dom";
 import reducer from "../../reducers/commentsReducer.js";
-
+import Path from "../../paths.js";
+import * as likeService from "../../services/likeService.js";
 const PizzaDetails = () => {
   const { pizzaId } = useParams();
   const [pizza, setPizza] = useState({});
+  const navigate = useNavigate();
   const [comments, dispatch] = useReducer(reducer, []);
+
   const { username, email, isAuthenticated, userId } = useContext(AuthContext);
   const isOwner = pizza._ownerId === userId;
   useEffect(() => {
@@ -21,7 +25,14 @@ const PizzaDetails = () => {
       setPizza(result);
     });
 
-    commentService.getAllComments(pizzaId).then((result) => {
+    likeService.getPizzaLikes(pizzaId).then((result) => {
+      setPizza((state) => ({
+        ...state,
+        likes: result,
+      }));
+    });
+
+    commentService.getAllCommentsPerPizza(pizzaId).then((result) => {
       dispatch({
         type: actionTypes.GET_ALL_COMMENTS,
         payload: result,
@@ -39,7 +50,6 @@ const PizzaDetails = () => {
       type: actionTypes.ADD_COMMENT,
       payload: newComment,
     });
-    console.log(comments, "all comments");
   };
 
   const handleLike = async (comment, isLiked) => {
@@ -59,7 +69,24 @@ const PizzaDetails = () => {
       payload: result,
     });
   };
+  const handleDelete = async (pizzaId) => {
+    await pizzaService.remove(pizzaId);
+    navigate(Path.Home);
+  };
 
+  const handlePizzaLike = async () => {
+    if (Array.isArray(pizza.likes) && !pizza.likes.includes(email)) {
+      try {
+        await likeService.like(email, pizzaId);
+        setPizza((state) => ({
+          ...state,
+          likes: [...state.likes, email],
+        }));
+      } catch (err) {
+        console.log(err, "err");
+      }
+    }
+  };
   const { values, onChange, onSubmit } = useForm(addCommentHandler, {
     comment: "",
   });
@@ -70,8 +97,8 @@ const PizzaDetails = () => {
         <div className="pizzaImageWrapper">
           <img src={pizza.imageUrl} alt={pizza.name} className="pizzaImg" />
           <div className="likeAndComments">
-            <div>{`${pizza.likes?.length || 0} likes`}</div>
-            <div>{`${pizza.comments?.length || 0} comments`}</div>
+            <div>{`${pizza?.likes?.length || 0} likes`}</div>
+            <div>{`${comments?.length || 0} comments`}</div>
           </div>
         </div>
 
@@ -92,7 +119,10 @@ const PizzaDetails = () => {
               </Link>
             )}
             {!isOwner && (
-              <Link to="" className="button tertiaryButton">
+              <Link
+                onClick={() => handlePizzaLike()}
+                className="button tertiaryButton"
+              >
                 Like
               </Link>
             )}
@@ -101,7 +131,7 @@ const PizzaDetails = () => {
             </Link>
             {isOwner && (
               <Link
-                to="/pizzas/:pizzaId/delete"
+                onClick={() => handleDelete(pizzaId)}
                 className="button warningButton"
               >
                 Delete

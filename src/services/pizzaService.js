@@ -27,3 +27,8 @@ export const edit = async (pizzaId, pizzaData) => {
 
   return result;
 };
+export const remove = async (pizzaId) => {
+  const result = await request.remove(`${baseUrl}/${pizzaId}`);
+
+  return result;
+};
