@@ -41,7 +41,6 @@ export const AuthProvider = ({ children }) => {
     userId: auth._id,
     isAuthenticated: !!auth.email,
   };
-  console.log(auth, "auth result");
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };
 AuthContext.displayName = "AuthContext";

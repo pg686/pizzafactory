@@ -9,6 +9,7 @@ import {
 import { getDate } from "../../utils/utils.js";
 
 const PizzaDetailsComments = ({
+  email,
   comment,
   handleLike,
   handleDislike,
@@ -16,10 +17,9 @@ const PizzaDetailsComments = ({
 }) => {
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
-
   useEffect(() => {
     if (comment) {
-      const email = comment.owner?.email;
+      
       const likes =
         Array.isArray(comment.likes) && comment.likes.includes(email);
       const dislikes =
@@ -34,19 +34,21 @@ const PizzaDetailsComments = ({
     setLiked((prevLiked) => {
       const newLiked = !prevLiked;
       if (newLiked) setDisliked(false);
-      handleLike(comment, newLiked);
+      console.log("liked comment");
+      handleLike(email, comment, prevLiked);
       return newLiked;
     });
-  }, [comment, handleLike]);
+  }, [email, comment, handleLike]);
 
   const handleDislikeClick = useCallback(() => {
     setDisliked((prevDisliked) => {
       const newDisliked = !prevDisliked;
       if (newDisliked) setLiked(false);
-      handleDislike(comment, newDisliked);
+      console.log("disliked comment");
+      handleDislike(email, comment, prevDisliked);
       return newDisliked;
     });
-  }, [comment, handleDislike]);
+  }, [email, comment, handleDislike]);
 
   return (
     <div className="commentContainer">

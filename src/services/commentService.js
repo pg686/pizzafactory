@@ -22,8 +22,6 @@ export const createComment = async (pizzaId, text) => {
     const newComment = await request.post(baseUrl, {
       pizzaId,
       text,
-      likes: [],
-      dislikes: [],
     });
     return newComment;
   } catch (error) {
@@ -48,7 +46,6 @@ export const like = async (comment, isLiked) => {
       `${baseUrl}/${comment._id}`,
       updatedComment,
     );
-    console.log(result, "result liked");
     return result;
   } catch (error) {
     console.error("Failed to like comment", error);
@@ -70,7 +67,6 @@ export const dislike = async (comment, isDisliked) => {
       `${baseUrl}/${comment._id}`,
       updatedComment,
     );
-    console.log(result, "result disliked");
     return result;
   } catch (error) {
     console.error("Failed to dislike comment", error);

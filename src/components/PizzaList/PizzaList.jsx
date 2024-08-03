@@ -14,7 +14,7 @@ export default function PizzaList() {
   }, []);
 
   useEffect(() => {
-    if (pizzas.length) {
+    if (pizzas?.length && pizzas?.some((x) => x.comments === undefined)) {
       pizzas.forEach((currentPizza) => {
         commentService
           .getAllCommentsPerPizza(currentPizza._id)
@@ -30,7 +30,7 @@ export default function PizzaList() {
   }, [pizzas]);
 
   useEffect(() => {
-    if (pizzas.length) {
+    if (pizzas?.length && pizzas?.some((x) => x.likes === undefined)) {
       pizzas.forEach((currentPizza) => {
         likeService.getPizzaLikes(currentPizza._id).then((result) => {
           setPizzas((prevState) =>
@@ -42,24 +42,22 @@ export default function PizzaList() {
       });
     }
   }, [pizzas]);
-
   return (
     <div className="pizzaListWrapper">
       <h1>Pizzas</h1>
       <div className="pizzaList">
         {pizzas.map((pizza) => {
-          console.log(pizza, "pizza pizzaList");
           return (
             <PizzaListItem
               key={pizza._id}
               id={pizza._id}
               name={pizza.name}
               type={pizza.pizzaType}
-              likesNum={pizza.likes.length}
+              likesNum={pizza?.likes?.length}
               price={pizza.price}
               image={pizza.imageUrl}
               products={pizza.products}
-              comments={pizza.comments.length}
+              comments={pizza?.comments?.length}
             />
           );
         })}

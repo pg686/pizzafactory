@@ -122,9 +122,7 @@ export default function PizzaCreate() {
           imageUrl: pizza.imageUrl,
           pizzaType: pizza.pizzaType,
           price: pizza.price,
-          products: pizza.products,
-          likes: [],
-          comments: [],
+          products: pizza.products
         });
 
         navigate("/");
@@ -141,8 +139,6 @@ export default function PizzaCreate() {
           pizzaType: pizza.pizzaType,
           price: pizza.price,
           products: pizza.products,
-          likes: [],
-          comments: [],
         });
 
         navigate("/");
