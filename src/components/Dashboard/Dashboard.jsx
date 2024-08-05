@@ -21,8 +21,11 @@ export default function Dashboard() {
             <FaArrowRight />
           </a>
         </div>
+      </div>{" "}
+      <div className="pizzaListWrapper">
+        <h1>Pizzas</h1>
+        <PizzaList />
       </div>
-      <PizzaList />
     </section>
   );
 }

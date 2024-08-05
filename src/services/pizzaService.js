@@ -21,7 +21,15 @@ export const getOne = async (id) => {
   const result = await request.get(`${baseUrl}/${id}`);
   return result;
 };
-
+export const getAllFromUser = async (userId) => {
+  const query = new URLSearchParams({
+    where: `_ownerId="${userId}"`,
+  });
+  try {
+    const result = await request.get(`${baseUrl}?${query}`);
+    return result;
+  } catch (err) {}
+};
 export const edit = async (pizzaId, pizzaData) => {
   const result = await request.put(`${baseUrl}/${pizzaId}`, pizzaData);
 

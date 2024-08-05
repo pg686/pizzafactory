@@ -40,19 +40,28 @@ const PizzaDetails = () => {
     });
   }, [pizzaId]);
 
-useEffect(() => {
- if(comments?.length && comments.some(x => x?.dislikes === undefined) && comments.some(x => x?.likes === undefined)){
-  comments.forEach((currentComment) => {
-
-    likeService.getCommentLikesAndDislikes(currentComment._id).then((result) => {
-      dispatch({
-        type: actionTypes.UPDATE_COMMENT,
-        payload: { ...currentComment, likes: result.likes, dislikes: result.dislikes },
+  useEffect(() => {
+    if (
+      comments?.length &&
+      comments.some((x) => x?.dislikes === undefined) &&
+      comments.some((x) => x?.likes === undefined)
+    ) {
+      comments.forEach((currentComment) => {
+        likeService
+          .getCommentLikesAndDislikes(currentComment._id)
+          .then((result) => {
+            dispatch({
+              type: actionTypes.UPDATE_COMMENT,
+              payload: {
+                ...currentComment,
+                likes: result.likes,
+                dislikes: result.dislikes,
+              },
+            });
+          });
       });
-  });});
- }
-
-}, [comments]);
+    }
+  }, [comments]);
   const addCommentHandler = async (values) => {
     const newComment = await commentService.createComment(
       pizzaId,
@@ -64,33 +73,36 @@ useEffect(() => {
       payload: newComment,
     });
   };
- 
+
   const handleLike = async (email, comment, isLiked) => {
-
-  const result = await likeService.likeComment(email, comment?._id, isLiked);
-  dispatch({
-    type: actionTypes.UPDATE_COMMENT,
-payload: {
-  ...comment,
-  likes: result ? [...comment.likes, email] : comment.likes.filter((x) => x !== email),
-  dislikes: comment.dislikes.filter((x) => x !== email),
-},
-  });
-  
-  }
+    const result = await likeService.likeComment(email, comment?._id, isLiked);
+    dispatch({
+      type: actionTypes.UPDATE_COMMENT,
+      payload: {
+        ...comment,
+        likes: result
+          ? [...comment.likes, email]
+          : comment.likes.filter((x) => x !== email),
+        dislikes: comment.dislikes.filter((x) => x !== email),
+      },
+    });
+  };
   const handleDislike = async (email, comment, isDisliked) => {
-    
-      const result = await likeService.dislikeComment(email, comment?._id, isDisliked);
-      dispatch({
-        type: actionTypes.UPDATE_COMMENT,
-        payload: {
-          ...comment,
-          dislikes: result ? [...comment.dislikes, email] : comment.dislikes.filter((x) => x !== email),
-          likes: comment.likes.filter((x) => x !== email),
-        },
-      });
-    
-
+    const result = await likeService.dislikeComment(
+      email,
+      comment?._id,
+      isDisliked,
+    );
+    dispatch({
+      type: actionTypes.UPDATE_COMMENT,
+      payload: {
+        ...comment,
+        dislikes: result
+          ? [...comment.dislikes, email]
+          : comment.dislikes.filter((x) => x !== email),
+        likes: comment.likes.filter((x) => x !== email),
+      },
+    });
   };
   const handleDelete = async (pizzaId) => {
     await pizzaService.remove(pizzaId);
@@ -169,7 +181,7 @@ payload: {
         <div className="comments">
           {comments.map((comment) => (
             <PizzaDetailsComment
-            email={email}
+              email={email}
               key={comment._id}
               comment={comment}
               handleLike={handleLike}

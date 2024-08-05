@@ -19,7 +19,6 @@ const PizzaDetailsComments = ({
   const [disliked, setDisliked] = useState(false);
   useEffect(() => {
     if (comment) {
-      
       const likes =
         Array.isArray(comment.likes) && comment.likes.includes(email);
       const dislikes =
@@ -34,7 +33,6 @@ const PizzaDetailsComments = ({
     setLiked((prevLiked) => {
       const newLiked = !prevLiked;
       if (newLiked) setDisliked(false);
-      console.log("liked comment");
       handleLike(email, comment, prevLiked);
       return newLiked;
     });
@@ -44,7 +42,6 @@ const PizzaDetailsComments = ({
     setDisliked((prevDisliked) => {
       const newDisliked = !prevDisliked;
       if (newDisliked) setLiked(false);
-      console.log("disliked comment");
       handleDislike(email, comment, prevDisliked);
       return newDisliked;
     });

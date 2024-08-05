@@ -122,7 +122,7 @@ export default function PizzaCreate() {
           imageUrl: pizza.imageUrl,
           pizzaType: pizza.pizzaType,
           price: pizza.price,
-          products: pizza.products
+          products: pizza.products,
         });
 
         navigate("/");
