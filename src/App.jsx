@@ -10,24 +10,29 @@ import MyPizzas from "./components/MyPizzas/MyPizzas.jsx";
 import Path from "./paths.js";
 import { AuthProvider } from "./context/authContext.jsx";
 import Logout from "./components/Logout/Logout.jsx";
+import { CardProvider } from "./context/cardContext.jsx";
 
 function App() {
   return (
     <AuthProvider>
-      <>
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/pizzas" element={<PizzaList />} />
-          <Route path="/login" element={<Login />} />
-          <Route path={Path.Logout} element={<Logout />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/pizzas/create" element={<PizzaCreate />} />
-          <Route path="/my-pizzas" element={<MyPizzas />} />
-          <Route path="/pizzas/:pizzaId" element={<PizzaDetails />} />
-          <Route path="/pizzas/:pizzaId/edit" element={<PizzaCreate />} />
-        </Routes>
-      </>
+      <CardProvider>
+        <>
+          <Navigation />
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+
+            <Route path="/pizzas" element={<PizzaList />} />
+            <Route path="/pizzas/:pizzaId" element={<PizzaDetails />} />
+            <Route path="/login" element={<Login />} />
+            <Route path={Path.Logout} element={<Logout />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/pizzas/create" element={<PizzaCreate />} />
+            <Route path="/my-pizzas" element={<MyPizzas />} />
+
+            <Route path="/pizzas/:pizzaId/edit" element={<PizzaCreate />} />
+          </Routes>
+        </>
+      </CardProvider>
     </AuthProvider>
   );
 }

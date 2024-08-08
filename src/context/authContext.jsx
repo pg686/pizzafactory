@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
       values.email,
       values.password,
       values.username,
+      values.imageUrl,
     );
     setAuth(result);
     localStorage.setItem("accessToken", result.accessToken);
@@ -40,6 +41,7 @@ export const AuthProvider = ({ children }) => {
     email: auth.email,
     userId: auth._id,
     isAuthenticated: !!auth.email,
+    imageUrl: auth.imageUrl,
   };
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 };

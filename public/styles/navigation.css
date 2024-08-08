@@ -83,3 +83,30 @@
     z-index: 1;
   }
 }
+.shoppingCardWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  position: relative;
+}
+.shoppingCard {
+  width: 25px;
+  height: auto;
+}
+.cardNum {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background: red;
+  width: 20px;
+  font-size: 12px;
+  text-align: center;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid red;
+  border-radius: 100px;
+}

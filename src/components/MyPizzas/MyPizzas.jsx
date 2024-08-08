@@ -5,6 +5,7 @@ import "./MyPizzas.modules.css";
 
 const MyPizzas = () => {
   const { userId } = useContext(AuthContext);
+  console.log(localStorage.getItem("accessToken"), "accessToken");
   return (
     <div className="myPizzasWrapper">
       <h1>My Pizzas</h1>

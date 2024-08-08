@@ -51,7 +51,10 @@ const PizzaDetailsComments = ({
     <div className="commentContainer">
       <div className="commentProfile">
         <img
-          src="https://pg686.github.io/cuttie/images/andrew.jpg"
+          src={
+            comment.owner.imageUrl ||
+            "https://digitalhealthskills.com/wp-content/uploads/2022/11/3da39-no-user-image-icon-27.png"
+          }
           alt="comment profile"
           className="commentImg"
         />

@@ -8,6 +8,7 @@ import { FaLock } from "react-icons/fa";
 const RegisterFormKeys = {
   Username: "username",
   Email: "email",
+  ImageUrl: "imageUrl",
   Password: "password",
   ConfirmPassword: "confirm-password",
 };
@@ -17,6 +18,7 @@ const Register = () => {
   const { values, onChange, onSubmit } = useForm(registerSubmitHandler, {
     [RegisterFormKeys.Username]: "",
     [RegisterFormKeys.Email]: "",
+    [RegisterFormKeys.ImageUrl]: "",
     [RegisterFormKeys.Password]: "",
     [RegisterFormKeys.ConfirmPassword]: "",
   });
@@ -42,6 +44,17 @@ const Register = () => {
               placeholder="Email"
               value={values[RegisterFormKeys.Email]}
               name={RegisterFormKeys.Email}
+              onChange={onChange}
+              required
+            />
+            <FaUser className="authIcons" />
+          </div>
+          <div className="input-box">
+            <input
+              type="text"
+              placeholder="Image Url"
+              value={values[RegisterFormKeys.ImageUrl]}
+              name={RegisterFormKeys.ImageUrl}
               onChange={onChange}
               required
             />

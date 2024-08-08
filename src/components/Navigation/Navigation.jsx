@@ -5,9 +5,13 @@ import { IoMdClose } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import AuthContext from "../../context/authContext";
+import { MdOutlineShoppingCart } from "react-icons/md";
+import CardContext from "../../context/cardContext.jsx";
+
 const Navigation = () => {
   const navRef = useRef();
   const { isAuthenticated, username } = useContext(AuthContext);
+  const { card } = useContext(CardContext);
   const [menuOpen, setMenuOpen] = useState(false);
   let userNavigation = (
     <>
@@ -27,13 +31,22 @@ const Navigation = () => {
         </Link>
       </li>
       <li>
-        <Link className="navLink" to="profile">
-          Profile
+        <Link className="navLink" to="logout">
+          Logout
         </Link>
       </li>
       <li>
-        <Link className="navLink" to="logout">
-          Logout
+        <Link className="navLink" to="card">
+          <div className="shoppingCardWrapper">
+            <MdOutlineShoppingCart className="shoppingCard" />
+            <span className="cardNum">
+              {Object.keys(card).length
+                ? Object.values(card)
+                    ?.map((x) => x?.quantity)
+                    ?.reduce((acc, cur) => acc + cur)
+                : 0}
+            </span>
+          </div>
         </Link>
       </li>
     </>

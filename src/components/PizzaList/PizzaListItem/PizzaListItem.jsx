@@ -2,7 +2,9 @@ import React from "react";
 import "./PizzaListItem.modules.css";
 import { Link } from "react-router-dom";
 import { getPizzaDescription } from "../../../utils/utils.js";
-
+import OrderButton from "../../../elements/OrderButton/OrderButton.jsx";
+import { useContext } from "react";
+import CardContext from "../../../context/cardContext.jsx";
 const PizzaListItem = ({
   id,
   name,
@@ -13,6 +15,7 @@ const PizzaListItem = ({
   products,
   comments,
 }) => {
+  const { card, addPizzaToCard, removeFromCard } = useContext(CardContext);
   return (
     <div className="cardWrapper">
       <div className="cardTitle">
@@ -34,9 +37,15 @@ const PizzaListItem = ({
           <Link to={`/pizzas/${id}`} className="button">
             Details
           </Link>
-          <a href="#" className="button">
-            Order
-          </a>
+          <OrderButton
+            addPizzaToCard={addPizzaToCard}
+            removeFromCard={removeFromCard}
+            card={card}
+            pizzaId={id}
+            pizzaImg={image}
+            pizzaName={name}
+            pizzaPrice={price}
+          />
         </div>
         <div className="pizzaType">{`Price: ${price}`}</div>
       </div>

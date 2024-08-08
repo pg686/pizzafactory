@@ -12,13 +12,18 @@ import { useNavigate } from "react-router-dom";
 import reducer from "../../reducers/commentsReducer.js";
 import Path from "../../paths.js";
 import * as likeService from "../../services/likeService.js";
+import CardContext from "../../context/cardContext.jsx";
+import OrderButton from "../../elements/OrderButton/OrderButton.jsx";
 const PizzaDetails = () => {
   const { pizzaId } = useParams();
   const [pizza, setPizza] = useState({});
   const navigate = useNavigate();
   const [comments, dispatch] = useReducer(reducer, []);
 
-  const { username, email, isAuthenticated, userId } = useContext(AuthContext);
+  const { username, email, isAuthenticated, userId, imageUrl } =
+    useContext(AuthContext);
+  const { card, addPizzaToCard, removeFromCard } = useContext(CardContext);
+  console.log(imageUrl, "imageUrl");
   const isOwner = pizza._ownerId === userId;
   useEffect(() => {
     pizzaService.getOne(pizzaId).then((result) => {
@@ -67,7 +72,7 @@ const PizzaDetails = () => {
       pizzaId,
       values.comment,
     );
-    newComment.owner = { username, email };
+    newComment.owner = { username, email, imageUrl };
     dispatch({
       type: actionTypes.ADD_COMMENT,
       payload: newComment,
@@ -161,9 +166,15 @@ const PizzaDetails = () => {
                 Like
               </Link>
             )}
-            <Link to="" className="button">
-              Order
-            </Link>
+            <OrderButton
+              addPizzaToCard={addPizzaToCard}
+              removeFromCard={removeFromCard}
+              card={card}
+              pizzaId={pizzaId}
+              pizzaImg={pizza.imageUrl}
+              pizzaName={pizza.name}
+              pizzaPrice={pizza.price}
+            />
             {isOwner && (
               <Link
                 onClick={() => handleDelete(pizzaId)}
@@ -192,7 +203,10 @@ const PizzaDetails = () => {
           <div className="addComment">
             <div className="ownerInfo">
               <img
-                src="https://pg686.github.io/cuttie/images/andrew.jpg"
+                src={
+                  imageUrl ||
+                  "https://digitalhealthskills.com/wp-content/uploads/2022/11/3da39-no-user-image-icon-27.png"
+                }
                 alt={username}
                 className="commentImg"
               />
