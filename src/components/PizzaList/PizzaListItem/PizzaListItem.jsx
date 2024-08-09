@@ -40,7 +40,7 @@ const PizzaListItem = ({
           <OrderButton
             addPizzaToCard={addPizzaToCard}
             removeFromCard={removeFromCard}
-            card={card}
+            productCount={card[id]?.quantity}
             pizzaId={id}
             pizzaImg={image}
             pizzaName={name}

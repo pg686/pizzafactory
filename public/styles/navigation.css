@@ -83,7 +83,7 @@
     z-index: 1;
   }
 }
-.shoppingCardWrapper {
+.shoppingCardWrapperNav {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

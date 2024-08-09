@@ -2,18 +2,23 @@ import React from "react";
 
 const OrderButton = ({
   pizzaId,
-  card,
+  hideOrderButton = false,
+  productCount,
   addPizzaToCard,
   removeFromCard,
   pizzaImg,
   pizzaName,
   pizzaPrice,
 }) => {
-  console.log(card, "card");
-  const productCount = card[pizzaId]?.quantity;
   return !!productCount ? (
     <div className="addQuantityWrapper">
-      <button onClick={() => removeFromCard(pizzaId)}>-</button> {productCount}{" "}
+      <button
+        onClick={() => removeFromCard(pizzaId)}
+        disabled={hideOrderButton && productCount === 1}
+      >
+        -
+      </button>{" "}
+      {productCount}{" "}
       <button
         onClick={() => addPizzaToCard(pizzaId, pizzaName, pizzaPrice, pizzaImg)}
       >

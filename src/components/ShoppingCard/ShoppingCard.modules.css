@@ -1,0 +1,54 @@
+.shoppingCardItemWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  width: 70%;
+  border: 1px solid #ccc;
+  height: 100px;
+  border-radius: 20px;
+}
+
+.shoppingCardWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 10rem;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shoppingCardItemImg {
+  width: 70px;
+  flex: 1;
+  height: 50px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+}
+.shoppingCardItemName {
+  flex: 4;
+  padding: 0 1rem;
+}
+
+.shoppingCardItemPrice {
+  flex: 3;
+  padding: 0 1rem;
+}
+.orderButton {
+  flex: 4;
+  padding: 0 1rem;
+}
+.totalPrice {
+  border-top: 1px solid black;
+  width: 40%;
+  display: flex;
+  margin-top: 4rem;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.shoppingCardWrapper h2 {
+  margin-bottom: 2rem;
+}

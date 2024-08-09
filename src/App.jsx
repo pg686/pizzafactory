@@ -9,6 +9,7 @@ import PizzaDetails from "./components/PizzaDetails/PizzaDetails.jsx";
 import MyPizzas from "./components/MyPizzas/MyPizzas.jsx";
 import Path from "./paths.js";
 import { AuthProvider } from "./context/authContext.jsx";
+import ShoppingCard from "./components/ShoppingCard/ShoppingCard.jsx";
 import Logout from "./components/Logout/Logout.jsx";
 import { CardProvider } from "./context/cardContext.jsx";
 
@@ -28,7 +29,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/pizzas/create" element={<PizzaCreate />} />
             <Route path="/my-pizzas" element={<MyPizzas />} />
-
+            <Route path="/card" element={<ShoppingCard />} />
             <Route path="/pizzas/:pizzaId/edit" element={<PizzaCreate />} />
           </Routes>
         </>

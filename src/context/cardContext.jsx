@@ -26,15 +26,19 @@ export const CardProvider = ({ children }) => {
     setCard(newState);
   };
   const removeFromCard = (pizzaId) => {
-    setCard((state) => {
-      const newState = { ...state };
-      if (newState[pizzaId].quantity === 1) {
-        delete newState[pizzaId];
-      } else {
-        newState[pizzaId].quantity--;
-      }
-      return newState;
-    });
+    const newState = { ...card };
+    if (newState[pizzaId].quantity === 1) {
+      delete newState[pizzaId];
+    } else {
+      newState[pizzaId].quantity--;
+    }
+
+    setCard(newState);
+  };
+  const removeAllFromCard = (pizzaId) => {
+    const newState = { ...card };
+    delete newState[pizzaId];
+    setCard(newState);
   };
 
   const completeOrder = async (email) => {
@@ -54,6 +58,7 @@ export const CardProvider = ({ children }) => {
     card,
     addPizzaToCard,
     removeFromCard,
+    removeAllFromCard,
     completeOrder,
   };
   return <CardContext.Provider value={values}>{children}</CardContext.Provider>;

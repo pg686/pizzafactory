@@ -79,7 +79,6 @@ export default function PizzaList({ userId }) {
     setSortState(e);
   };
 
-  console.log(pizzas, "pizzas");
   return (
     <>
       <div className="selectMenu">

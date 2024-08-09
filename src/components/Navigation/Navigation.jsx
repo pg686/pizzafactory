@@ -37,7 +37,7 @@ const Navigation = () => {
       </li>
       <li>
         <Link className="navLink" to="card">
-          <div className="shoppingCardWrapper">
+          <div className="shoppingCardWrapperNav">
             <MdOutlineShoppingCart className="shoppingCard" />
             <span className="cardNum">
               {Object.keys(card).length
@@ -69,8 +69,6 @@ const Navigation = () => {
     <header className="header">
       <nav className="navbar" ref={navRef}>
         <Link className="navTitle" to="/">
-          {" "}
-          <img src="/images/logo.png" className="logo" />
           Pizza Factory
         </Link>
         <div className="navMenu">

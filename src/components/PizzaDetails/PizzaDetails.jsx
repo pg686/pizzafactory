@@ -23,7 +23,6 @@ const PizzaDetails = () => {
   const { username, email, isAuthenticated, userId, imageUrl } =
     useContext(AuthContext);
   const { card, addPizzaToCard, removeFromCard } = useContext(CardContext);
-  console.log(imageUrl, "imageUrl");
   const isOwner = pizza._ownerId === userId;
   useEffect(() => {
     pizzaService.getOne(pizzaId).then((result) => {
@@ -169,7 +168,7 @@ const PizzaDetails = () => {
             <OrderButton
               addPizzaToCard={addPizzaToCard}
               removeFromCard={removeFromCard}
-              card={card}
+              productCount={card[pizzaId]?.quantity}
               pizzaId={pizzaId}
               pizzaImg={pizza.imageUrl}
               pizzaName={pizza.name}
