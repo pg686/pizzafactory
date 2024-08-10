@@ -30,7 +30,6 @@ const ShoppingCard = () => {
             <div className="shoppingCardItemName">{pizzaName}</div>
             <div className="shoppingCardItemPrice">{`Price: ${calculateTotalPrice()}`}</div>
             <div className="orderButton">
-              {" "}
               <OrderButton
                 addPizzaToCard={addPizzaToCard}
                 removeFromCard={removeFromCard}
@@ -42,12 +41,10 @@ const ShoppingCard = () => {
                 pizzaPrice={pizzaPrice}
               />
             </div>
-
             <TiDeleteOutline onClick={() => removeAllFromCard(pizzaId)} />
           </div>
         );
       })}
-
       <div className="totalPrice">Total Price: {calculateTotalPrice}</div>
       <a className="button" onClick={() => completeOrder(email)}>
         Complete order
