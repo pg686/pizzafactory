@@ -158,12 +158,14 @@ const PizzaDetails = () => {
               </Link>
             )}
             {!isOwner && (
-              <Link
+              <button
                 onClick={() => handlePizzaLike()}
+                disabled={pizza?.likes?.includes(email)}
                 className="button tertiaryButton"
+                
               >
                 Like
-              </Link>
+              </button>
             )}
             <OrderButton
               addPizzaToCard={addPizzaToCard}
@@ -175,12 +177,12 @@ const PizzaDetails = () => {
               pizzaPrice={pizza.price}
             />
             {isOwner && (
-              <Link
+              <button
                 onClick={() => handleDelete(pizzaId)}
                 className="button warningButton"
               >
                 Delete
-              </Link>
+              </button>
             )}
           </div>
         </div>

@@ -26,12 +26,12 @@ const OrderButton = ({
       </button>
     </div>
   ) : (
-    <a
+    <button
       onClick={() => addPizzaToCard(pizzaId, pizzaName, pizzaPrice, pizzaImg)}
       className="button"
     >
       Order
-    </a>
+    </button>
   );
 };
 
