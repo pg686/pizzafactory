@@ -1,5 +1,6 @@
 import React from "react";
 import "./ShoppingCardItem.modules.css";
+import { calculateTotalPrice } from "../../utils/utils.js";
 import OrderButton from "../../elements/OrderButton/OrderButton.jsx";
 const ShoppingCardItem = (
   pizzaName,
@@ -9,7 +10,6 @@ const ShoppingCardItem = (
   addPizzaToCard,
   removeFromCard,
 ) => {
-  const calculateTotalPrice = () => quantity * pizzaPrice;
   return (
     <div className="shoppingCardItemWrapper">
       <div className="shoppingCardItemImg">
@@ -17,7 +17,7 @@ const ShoppingCardItem = (
       </div>
 
       <div className="shoppingCardItemName">{pizzaName}</div>
-      <div className="shoppingCardItemPrice">{`Price: ${calculateTotalPrice()}`}</div>
+      <div className="shoppingCardItemPrice">{`Price: ${calculateTotalPrice(quantity, pizzaPrice)}`}</div>
       <OrderButton
         hideOrderButton
         addPizzaToCard={addPizzaToCard}

@@ -48,7 +48,7 @@
   border-radius: 4rem;
   color: #fff;
   font-weight: var(--font-medium);
-border-color: transparent;
+  border-color: transparent;
 }
 
 .button i {

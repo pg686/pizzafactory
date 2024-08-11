@@ -12,7 +12,7 @@ import { AuthProvider } from "./context/authContext.jsx";
 import ShoppingCard from "./components/ShoppingCard/ShoppingCard.jsx";
 import Logout from "./components/Logout/Logout.jsx";
 import { CardProvider } from "./context/cardContext.jsx";
-
+import MyOrders from "./components/MyOrders/MyOrders.jsx";
 function App() {
   return (
     <AuthProvider>
@@ -31,6 +31,7 @@ function App() {
             <Route path="/my-pizzas" element={<MyPizzas />} />
             <Route path="/card" element={<ShoppingCard />} />
             <Route path="/pizzas/:pizzaId/edit" element={<PizzaCreate />} />
+            <Route path="/my-orders" element={<MyOrders />} />
           </Routes>
         </>
       </CardProvider>

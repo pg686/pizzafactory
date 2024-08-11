@@ -115,6 +115,7 @@ const PizzaDetails = () => {
 
   const handlePizzaLike = async () => {
     if (Array.isArray(pizza.likes) && !pizza.likes.includes(email)) {
+      console.log("like");
       try {
         await likeService.like(email, pizzaId);
         setPizza((state) => ({
@@ -162,7 +163,6 @@ const PizzaDetails = () => {
                 onClick={() => handlePizzaLike()}
                 disabled={pizza?.likes?.includes(email)}
                 className="button tertiaryButton"
-                
               >
                 Like
               </button>

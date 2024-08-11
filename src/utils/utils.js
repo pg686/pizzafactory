@@ -14,3 +14,6 @@ export const getDate = (timestamp) => {
   const date = new Date(timestamp);
   return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
 };
+
+export const calculateTotalPrice = (quantity, price) =>
+  (quantity * price).toFixed(2);

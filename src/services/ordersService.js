@@ -4,10 +4,13 @@ const baseUrl = "http://localhost:3030/data/orders";
 
 export const create = (email, pizzas) =>
   request.post(`${baseUrl}`, { email, pizzas });
-export const getPizzaLikes = (pizzaId) => {
-  const query = encodeURIComponent(`pizzaId="${pizzaId}"`);
 
-  return request
-    .get(`${baseUrl}/pizzaLikes?select=email&where=${query}`)
-    .then((res) => res.map((x) => x.email));
+export const getAllForUser = async (userId) => {
+  const query = new URLSearchParams({
+    where: `_ownerId="${userId}"`,
+  });
+  try {
+    const result = await request.get(`${baseUrl}?${query}`);
+    return result;
+  } catch (err) {}
 };

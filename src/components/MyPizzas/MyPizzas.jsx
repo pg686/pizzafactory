@@ -6,7 +6,7 @@ import "./MyPizzas.modules.css";
 const MyPizzas = () => {
   const { userId } = useContext(AuthContext);
   return (
-    <div className="myPizzasWrapper">
+    <div className="pageWrapper">
       <h1>My Pizzas</h1>
       <PizzaList userId={userId} />
     </div>

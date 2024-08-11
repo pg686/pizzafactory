@@ -6,7 +6,7 @@ import Path from "../../paths.js";
 import CardContext from "../../context/cardContext.jsx";
 export default function Logout() {
   const { logoutHandler } = useContext(AuthContext);
-  const { cleanCard } = useContext(CardContext)
+  const { cleanCard } = useContext(CardContext);
   const navigate = useNavigate();
   useEffect(() => {
     authService

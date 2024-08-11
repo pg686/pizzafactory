@@ -53,17 +53,17 @@ export const CardProvider = ({ children }) => {
     setCard({});
     navigate(Path.Home);
   };
-const cleanCard = () => {
+  const cleanCard = () => {
     setCard({});
     localStorage.removeItem("card");
-} 
+  };
   const values = {
     card,
     addPizzaToCard,
     removeFromCard,
     removeAllFromCard,
     completeOrder,
-    cleanCard
+    cleanCard,
   };
   return <CardContext.Provider value={values}>{children}</CardContext.Provider>;
 };
